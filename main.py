@@ -1,6 +1,25 @@
-import cv2
-import sys
+from mpi4py import MPI
+import sys, cv2
 import numpy as np
+from roles.master import Master
+from roles.slave import Slave
+from roles.classifier import Classifier
+
+
+def get_process_role(rank, comm):
+    if rank == 0:
+        return Master(comm)
+    
+    if rank == 1:
+        return Classifier(comm)
+    
+    return Slave(comm)
+
+comm = MPI.COMM_WORLD
+rank = comm.Get_rank()
+
+process = get_process_role(rank, comm)
+process.work()
 
 cap = cv2.VideoCapture(0)
 
