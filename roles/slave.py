@@ -3,7 +3,7 @@ from worker import Worker
 from typing import override
 
 class Slave(Worker):
-    def __init__(self, comm: MPI.Comm, **kwargs):
+    def __init__(self, comm: MPI.Comm, **kargs):
         self.comm = comm
 
     @override
