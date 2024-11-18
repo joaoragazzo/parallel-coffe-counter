@@ -1,5 +1,5 @@
 from mpi4py import MPI
-from worker import Worker
+from roles.worker import Worker
 from typing import override
 
 class Classifier(Worker):
@@ -7,5 +7,5 @@ class Classifier(Worker):
         self.comm = comm
 
     @override
-    def work():
+    def work(self):
         pass

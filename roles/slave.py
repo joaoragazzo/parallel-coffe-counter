@@ -1,5 +1,5 @@
 from mpi4py import MPI
-from worker import Worker
+from roles.worker import Worker
 from typing import override
 
 class Slave(Worker):
@@ -7,5 +7,22 @@ class Slave(Worker):
         self.comm = comm
 
     @override
-    def work():
+    def work(self):
+
+        while True:
+            status = MPI.Status()
+            data = self.comm.recv(source=0, tag=MPI.ANY_TAG, status=status)
+            print(data)
+            if status.tag == 99:
+                # Sinal de parada
+                break
+            else:
+                quadrant_name, quadrant_data = data
+
+                # Processa o quadrante
+                # result = classify_coffee_beans(quadrant_data)
+
+                # Envia o resultado de volta ao mestre
+                # self.comm.send({quadrant_name: result}, dest=0, tag=22)
+
         pass
