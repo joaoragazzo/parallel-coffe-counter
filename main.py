@@ -6,14 +6,14 @@ from roles.slave import Slave
 from roles.classifier import Classifier
 
 
-def get_process_role(rank, comm):
-    if rank == 0:
-        return Master(comm)
-    
-    if rank == 1:
-        return Classifier(comm)
-    
-    return Slave(comm)
+ROLE_MAP = {
+    0: Master,
+    1: Classifier
+}
+
+def get_process_role(rank, comm, *args, **kwargs):
+    role_class = ROLE_MAP.get(rank, Slave) 
+    return role_class(comm, *args, **kwargs)
 
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
