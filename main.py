@@ -11,9 +11,9 @@ ROLE_MAP = {
     1: Classifier
 }
 
-def get_process_role(rank, comm, *args, **kwargs):
+def get_process_role(rank, comm, **kwargs):
     role_class = ROLE_MAP.get(rank, Slave) 
-    return role_class(comm, *args, **kwargs)
+    return role_class(comm, **kwargs)
 
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
