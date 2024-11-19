@@ -2,7 +2,7 @@ from mpi4py import MPI
 from roles.worker import Worker
 from typing import override
 import cv2
-import tensorflow as tf
+#import tensorflow as tf
 import numpy as np
 import os
 
